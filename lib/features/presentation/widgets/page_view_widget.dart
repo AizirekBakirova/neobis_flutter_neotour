@@ -69,6 +69,19 @@ class _PageViewWidgetState extends State<PageViewWidget> {
                 activeDotColor: AppColors.dotsColor1),
           ),
         ),
+        SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 260),
+          child: Text(
+            'Recommended',
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: AppColors.black),
+          ),
+        )
       ],
     );
   }

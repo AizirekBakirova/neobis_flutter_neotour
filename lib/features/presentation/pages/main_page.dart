@@ -26,7 +26,7 @@ class MainPage extends StatelessWidget {
                 TopWidget(),
                 SizedBox(height: 28),
                 PageViewWidget(),
-                SizedBox(height: 74),
+                SizedBox(height: 20),
                 GridViewWidget(),
               ],
             ),
