@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:neobis_flutter_neotour/features/presentation/pages/detail_page.dart';
 
 class GridViewWidget extends StatelessWidget {
@@ -69,18 +70,18 @@ class GridViewItem extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10)),
+                      bottomLeft: Radius.circular(10.r),
+                      bottomRight: Radius.circular(10.r)),
                   color: Colors.black.withOpacity(0.4),
                 ),
-                height: 50,
+                height: 50.h,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, top: 15),
                   child: Text(
                     text,
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold),
                   ),
                 ),

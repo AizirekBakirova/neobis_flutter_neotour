@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:neobis_flutter_neotour/util/colors/app_colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -31,8 +32,8 @@ class _PageViewWidgetState extends State<PageViewWidget> {
     return Column(
       children: [
         SizedBox(
-          width: 335,
-          height: 254,
+          width: 335.w,
+          height: 254.h,
           child: PageView.builder(
               controller: pageController,
               itemCount: 5,
@@ -53,7 +54,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
               }),
         ),
         SizedBox(
-          height: 30,
+          height: 30.h,
         ),
         Padding(
           padding: EdgeInsets.all(8),
@@ -70,14 +71,14 @@ class _PageViewWidgetState extends State<PageViewWidget> {
           ),
         ),
         SizedBox(
-          height: 20,
+          height: 20.h,
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 260),
+          padding: const EdgeInsets.only(right: 200),
           child: Text(
             'Recommended',
             style: TextStyle(
-                fontSize: 20,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.w700,
                 color: AppColors.black),
           ),
