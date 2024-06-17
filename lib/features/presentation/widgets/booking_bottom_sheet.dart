@@ -1,10 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:neobis_flutter_neotour/util/colors/app_colors.dart';
 
-class BookingBottomSheet extends StatelessWidget {
-  BookingBottomSheet({super.key});
+import '../../../util/colors/app_colors.dart';
+
+class BookingBottomSheet extends StatefulWidget {
+  const BookingBottomSheet({
+    super.key,
+    this.onSubmit,
+  });
+
+  final VoidCallback? onSubmit;
+
+  @override
+  State<BookingBottomSheet> createState() => _BookingBottomSheetState();
+}
+
+class _BookingBottomSheetState extends State<BookingBottomSheet> {
   int count = 0;
+
+  final _numberController = TextEditingController();
+  final _commentController = TextEditingController();
+
+  bool get isFormValid =>
+      _numberController.text.isNotEmpty && _commentController.text.isNotEmpty;
+
+  @override
+  void initState() {
+    _numberController.addListener(() {
+      setState(() {});
+    });
+    _commentController.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +41,7 @@ class BookingBottomSheet extends StatelessWidget {
         initialChildSize: 0.5.h,
         maxChildSize: 0.9,
         minChildSize: 0.3,
-        builder: (context, scrollConroller) {
+        builder: (context, scrollController) {
           return SingleChildScrollView(
             child: Container(
               height: 505.h,
@@ -67,10 +96,23 @@ class BookingBottomSheet extends StatelessWidget {
                       height: 50.h,
                       width: 375.w,
                       child: TextField(
+                        controller: _numberController,
                         decoration: InputDecoration(
-                            prefixIcon: Image.asset(
-                              'assets/icons/Frame 86.png',
-                              scale: 3.h,
+                            prefixIcon: GestureDetector(
+                              onTap: () {},
+                              child: DropdownButton<String>(
+                                items: <String>['+996', '+7', '+1']
+                                    .map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Image.asset(
+                                      'assets/icons/Frame 86.png',
+                                      scale: 3.h,
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (_) {},
+                              ),
                             ),
                             hintText: '+996 _ _ _   _ _ _   _ _ _',
                             border: OutlineInputBorder(
@@ -94,18 +136,22 @@ class BookingBottomSheet extends StatelessWidget {
                       height: 50.h,
                       width: 375.w,
                       child: TextField(
+                        controller: _commentController,
                         decoration: InputDecoration(
-                            hintText: 'Write your wishes to trip...',
-                            hintStyle: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff888888)),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(100)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(100.r),
-                                borderSide:
-                                    const BorderSide(color: Colors.grey))),
+                          hintText: 'Write your wishes to trip...',
+                          hintStyle: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xff888888)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100)),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100.r),
+                            borderSide: const BorderSide(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -121,41 +167,61 @@ class BookingBottomSheet extends StatelessWidget {
                     SizedBox(height: 4.h),
                     Row(
                       children: [
-                        SizedBox(
-                          height: 36.h,
-                          width: 29.w,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(13.5.r),
-                                color: const Color(0xff897CFF)),
-                            child: const Center(
-                                child: Icon(
-                              Icons.remove,
-                              color: Colors.white,
-                            )),
+                        InkWell(
+                          onTap: () {
+                            if (count < 2) {
+                              return;
+                            }
+                            setState(() {
+                              count--;
+                            });
+                          },
+                          child: SizedBox(
+                            height: 36.h,
+                            width: 29.w,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(13.5.r),
+                                  color: const Color(0xff897CFF)),
+                              child: const Center(
+                                  child: Icon(
+                                Icons.remove,
+                                color: Colors.white,
+                              )),
+                            ),
                           ),
                         ),
                         SizedBox(width: 18.w),
                         Text(
-                          '5',
+                          '$count',
                           style: TextStyle(
                               color: AppColors.black,
                               fontWeight: FontWeight.w900,
                               fontSize: 16.sp),
                         ),
                         SizedBox(width: 18.w),
-                        SizedBox(
-                          height: 36.h,
-                          width: 29.w,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(13.5.r),
-                                color: const Color(0xff897CFF)),
-                            child: const Center(
-                                child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            )),
+                        InkWell(
+                          onTap: () {
+                            if (count > 5) {
+                              return;
+                            }
+                            setState(() {
+                              count++;
+                            });
+                          },
+                          child: SizedBox(
+                            height: 36.h,
+                            width: 29.w,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(13.5.r),
+                                  color: const Color(0xff897CFF)),
+                              child: const Center(
+                                  child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              )),
+                            ),
                           ),
                         ),
                         SizedBox(width: 20.w),
@@ -181,9 +247,7 @@ class BookingBottomSheet extends StatelessWidget {
                             backgroundColor: const Color(0xffB4B0DA),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(28.r))),
-                        onPressed: () {
-                          _showDialog(context);
-                        },
+                        onPressed: isFormValid ? widget.onSubmit : null,
                         child: Text(
                           'Submit',
                           style: TextStyle(
@@ -201,50 +265,4 @@ class BookingBottomSheet extends StatelessWidget {
           );
         });
   }
-}
-
-Future<void> _showDialog(BuildContext context) async {
-  return showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: AppColors.white,
-        title: SizedBox(
-          width: 383.w,
-          child: Center(
-            child: Text(
-              'Your trip has been booked!',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w700),
-            ),
-          ),
-        ),
-        actions: [
-          Center(
-            child: MaterialButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30)),
-              elevation: 5,
-              minWidth: 303.w,
-              height: 50.h,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              color: AppColors.primary,
-              child: const Text(
-                'Ok',
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
-              ),
-            ),
-          ),
-        ],
-      );
-    },
-  );
 }

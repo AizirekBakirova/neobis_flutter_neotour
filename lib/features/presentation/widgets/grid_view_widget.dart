@@ -11,7 +11,7 @@ class GridViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.count(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
       crossAxisSpacing: 13,
       mainAxisSpacing: 12,
@@ -19,17 +19,27 @@ class GridViewWidget extends StatelessWidget {
         GridViewItem(
           image: 'assets/images/Rectangle 3 (4).png',
           text: 'Greenough, Montana',
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DetailPage(),
+              ),
+            );
+          },
         ),
-        GridViewItem(
+        const GridViewItem(
           image: 'assets/images/Rectangle 3 (5).png',
           text: 'Razek`s House',
         ),
-        GridViewItem(
+        const GridViewItem(
           image: 'assets/images/Rectangle 3 (6).png',
           text: 'Alta, Norway',
         ),
-        GridViewItem(
-            image: 'assets/images/Rectangle 3 (7).png', text: 'Guilin, China'),
+        const GridViewItem(
+          image: 'assets/images/Rectangle 3 (7).png',
+          text: 'Guilin, China',
+        ),
       ],
     );
   }
@@ -40,18 +50,17 @@ class GridViewItem extends StatelessWidget {
     super.key,
     required this.image,
     required this.text,
+    this.onTap,
   });
 
   final String image;
   final String text;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailPage()));
-      },
+    return GestureDetector(
+      onTap: onTap,
       child: Center(
         child: Stack(
           alignment: Alignment.bottomLeft,
