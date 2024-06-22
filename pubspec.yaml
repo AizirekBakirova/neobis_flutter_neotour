@@ -38,6 +38,10 @@ dependencies:
   flutter_screenutil: ^5.9.3
   smooth_page_indicator: ^1.1.0
   carousel_slider: ^4.2.1
+  mask_text_input_formatter: ^2.9.0
+  http: ^1.2.1
+  provider: ^6.1.2
+
 
 dev_dependencies:
   flutter_test:

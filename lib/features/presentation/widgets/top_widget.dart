@@ -16,7 +16,7 @@ class TopWidget extends StatelessWidget {
             height: 38.h,
             width: 139.w,
             child: Image.asset('assets/images/Discover.png')),
-        SizedBox(
+        const SizedBox(
           height: 21,
         ),
         SingleChildScrollView(
@@ -33,28 +33,28 @@ class TopWidget extends StatelessWidget {
               SizedBox(
                 width: 30.w,
               ),
-              Text(
+              const Text(
                 'Featured',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 width: 30.w,
               ),
-              Text(
+              const Text(
                 'Most Visited',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 width: 30.w,
               ),
-              Text(
+              const Text(
                 'Europe',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 width: 30.w,
               ),
-              Text(
+              const Text(
                 'Asia',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),

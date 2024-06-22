@@ -1,37 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:neobis_flutter_neotour/features/data/provider/tour_provider.dart';
 import 'package:neobis_flutter_neotour/features/presentation/pages/detail_page.dart';
 
 class GridViewWidget extends StatelessWidget {
-  const GridViewWidget({
+  GridViewWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
-      crossAxisSpacing: 13,
-      mainAxisSpacing: 12,
-      children: [
-        GridViewItem(
-          image: 'assets/images/Rectangle 3 (4).png',
-          text: 'Greenough, Montana',
-        ),
-        GridViewItem(
-          image: 'assets/images/Rectangle 3 (5).png',
-          text: 'Razek`s House',
-        ),
-        GridViewItem(
-          image: 'assets/images/Rectangle 3 (6).png',
-          text: 'Alta, Norway',
-        ),
-        GridViewItem(
-            image: 'assets/images/Rectangle 3 (7).png', text: 'Guilin, China'),
-      ],
-    );
+    final tourProvider = Provider.of<TourProvider>(context);
+    return tourProvider.isLoading
+        ? Center(child: CircularProgressIndicator())
+        : GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 13,
+            mainAxisSpacing: 12,
+            children: List.generate(tourProvider.tours.length, (index) {
+              final tour = tourProvider.tours[index];
+              return GridViewItem(
+                image: tour.thumbnail,
+                text: tour.name,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DetailPage(),
+                    ),
+                  );
+                },
+              );
+              //  const GridViewItem(
+              //   image: 'assets/images/Rectangle 3 (5).png',
+              //   text: 'Razek`s House',
+              // ),
+              // const GridViewItem(
+              //   image: 'assets/images/Rectangle 3 (6).png',
+              //   text: 'Alta, Norway',
+              // ),
+              // const GridViewItem(
+              //   image: 'assets/images/Rectangle 3 (7).png',
+              //   text: 'Guilin, China',
+              // ),
+            }));
   }
 }
 
@@ -40,23 +55,22 @@ class GridViewItem extends StatelessWidget {
     super.key,
     required this.image,
     required this.text,
+    this.onTap,
   });
 
   final String image;
   final String text;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailPage()));
-      },
+    return GestureDetector(
+      onTap: onTap,
       child: Center(
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            Image.asset(
+            Image.network(
               image,
               fit: BoxFit.cover,
               width: double.infinity,
