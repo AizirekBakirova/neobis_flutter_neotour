@@ -1,25 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:neobis_flutter_neotour/features/data/fetch_data/fetch_tours.dart';
-import 'package:neobis_flutter_neotour/features/data/models/tours.dart';
+// import 'package:flutter/material.dart';
+// import 'package:http/http.dart' as http;
+// import 'dart:convert';
+// import 'package:neobis_flutter_neotour/features/data/models/tours.dart';
 
-class TourProvider with ChangeNotifier {
-  List<Tours> _tours = [];
-  bool _isLoading = false;
+// class TourProvider with ChangeNotifier {
+//   List<Tour> _tours = [];
 
-  List<Tours> get tours => _tours;
-  bool get isLoading => _isLoading;
+//   List<Tour> get tours => _tours;
 
-  Future<void> loadTours() async {
-    _isLoading = true;
-    notifyListeners();
+//   Future<void> fetchTours() async {
+//     final response =
+//         await http.get(Uri.parse('https://muha-backender.org.kg/list-tours/'));
 
-    try {
-      _tours = await TourService().fetchTours();
-    } catch (error) {
-      print('Error loading tours: $error');
-    }
-
-    _isLoading = false;
-    notifyListeners();
-  }
-}
+//     if (response.statusCode == 200) {
+//       List<dynamic> jsonData = json.decode(response.body);
+//       _tours = jsonData.map((json) => Tour.fromJson(json)).toList();
+//       notifyListeners();
+//     } else {
+//       throw Exception('Failed to load tours');
+//     }
+//   }
+// }

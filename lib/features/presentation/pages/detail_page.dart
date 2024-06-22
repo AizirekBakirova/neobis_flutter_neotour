@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:neobis_flutter_neotour/features/presentation/pages/main_page.dart';
+import 'package:neobis_flutter_neotour/features/presentation/widgets/grid_view_widget.dart';
 import 'package:neobis_flutter_neotour/util/colors/app_colors.dart';
 
 import '../widgets/booking_bottom_sheet.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+  DetailPage({
+    super.key,
+    required this.image,
+    required this.name,
+    required this.location,
+    required this.description,
+  });
+  final String image;
+  final String name;
+  final String location;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +33,8 @@ class DetailPage extends StatelessWidget {
                   Positioned.fill(
                     child: FittedBox(
                       fit: BoxFit.cover,
-                      child: Image.asset(
-                        'assets/images/Rectangle 31.png',
+                      child: Image.network(
+                        image,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -74,17 +85,17 @@ class DetailPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Mount Fuji',
+                          name,
                           style: TextStyle(
                               fontSize: 24.sp, fontWeight: FontWeight.w900),
                         ),
                         SizedBox(
                           height: 12.h,
                         ),
-                        SizedBox(
-                          width: 78.w,
-                          height: 14.h,
-                          child: Image.asset('assets/icons/Frame 16 (1).png'),
+                        Text(
+                          location,
+                          style: TextStyle(
+                              fontSize: 10.sp, fontWeight: FontWeight.w900),
                         ),
                         SizedBox(
                           height: 22.h,
@@ -100,7 +111,7 @@ class DetailPage extends StatelessWidget {
                           height: 12.h,
                         ),
                         Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim eget amet viverra eget fames rhoncus. Eget enim venenatis enim porta egestas malesuada et. Consequat mauris lacus euismod montes.',
+                          description,
                           style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w400,

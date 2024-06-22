@@ -1,8 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:neobis_flutter_neotour/features/data/provider/tour_provider.dart';
 import 'package:neobis_flutter_neotour/features/presentation/pages/detail_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class Tour {
+  final String id;
+  final String name;
+  final String thumbnail;
+  final String location;
+  final String description;
+
+  Tour({
+    required this.id,
+    required this.name,
+    required this.thumbnail,
+    required this.location,
+    required this.description,
+  });
+
+  factory Tour.fromJson(Map<String, dynamic> json) {
+    return Tour(
+      id: json['id'],
+      name: json['name'],
+      thumbnail: json['thumbnail'],
+      location: json['location'],
+      description: json['description'],
+    );
+  }
+}
+
+class TourProvider with ChangeNotifier {
+  List<Tour> _tours = [];
+
+  List<Tour> get tours => _tours;
+
+  Future<void> fetchTours() async {
+    final response =
+        await http.get(Uri.parse('https://muha-backender.org.kg/list-tours/'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> jsonData = json.decode(response.body);
+      _tours = jsonData.map((json) => Tour.fromJson(json)).toList();
+      notifyListeners();
+    } else {
+      throw Exception('Failed to load tours');
+    }
+  }
+}
 
 class GridViewWidget extends StatelessWidget {
   GridViewWidget({
@@ -11,42 +57,44 @@ class GridViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tourProvider = Provider.of<TourProvider>(context);
-    return tourProvider.isLoading
-        ? Center(child: CircularProgressIndicator())
-        : GridView.count(
+    return Consumer<TourProvider>(
+      builder: (ctx, tourProvider, _) {
+        if (tourProvider.tours.isEmpty) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: 2,
             crossAxisSpacing: 13,
             mainAxisSpacing: 12,
-            children: List.generate(tourProvider.tours.length, (index) {
-              final tour = tourProvider.tours[index];
-              return GridViewItem(
-                image: tour.thumbnail,
-                text: tour.name,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DetailPage(),
-                    ),
-                  );
-                },
-              );
-              //  const GridViewItem(
-              //   image: 'assets/images/Rectangle 3 (5).png',
-              //   text: 'Razek`s House',
-              // ),
-              // const GridViewItem(
-              //   image: 'assets/images/Rectangle 3 (6).png',
-              //   text: 'Alta, Norway',
-              // ),
-              // const GridViewItem(
-              //   image: 'assets/images/Rectangle 3 (7).png',
-              //   text: 'Guilin, China',
-              // ),
-            }));
+            children: List.generate(
+              tourProvider.tours.length,
+              (index) {
+                final tour = tourProvider.tours[index];
+                return GridViewItem(
+                  image: tour.thumbnail,
+                  text: tour.name,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPage(
+                          image: tour.thumbnail,
+                          name: tour.name,
+                          location: tour.location,
+                          description: tour.description,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          );
+        }
+      },
+    );
   }
 }
 
@@ -70,12 +118,15 @@ class GridViewItem extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            Image.network(
-              image,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-              colorBlendMode: BlendMode.darken,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                image,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+                colorBlendMode: BlendMode.darken,
+              ),
             ),
             Positioned(
               bottom: 0,
@@ -86,7 +137,7 @@ class GridViewItem extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10.r),
                       bottomRight: Radius.circular(10.r)),
-                  color: Colors.black.withOpacity(0.4),
+                  color: Colors.black.withOpacity(0.5),
                 ),
                 height: 50.h,
                 child: Padding(
