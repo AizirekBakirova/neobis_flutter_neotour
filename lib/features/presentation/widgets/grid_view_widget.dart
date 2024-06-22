@@ -5,12 +5,32 @@ import 'package:neobis_flutter_neotour/features/presentation/pages/detail_page.d
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+class Review {
+  final String reviewerName;
+  final String reviewerPhoto;
+  final String reviewText;
+
+  Review(
+      {required this.reviewerName,
+      required this.reviewerPhoto,
+      required this.reviewText});
+
+  factory Review.fromJson(Map<String, dynamic> json) {
+    return Review(
+      reviewerName: json['reviewer_name'],
+      reviewerPhoto: json['reviewer_photo'],
+      reviewText: json['review_text'],
+    );
+  }
+}
+
 class Tour {
   final String id;
   final String name;
   final String thumbnail;
   final String location;
   final String description;
+  final List<Review> reviews;
 
   Tour({
     required this.id,
@@ -18,15 +38,21 @@ class Tour {
     required this.thumbnail,
     required this.location,
     required this.description,
+    required this.reviews,
   });
 
   factory Tour.fromJson(Map<String, dynamic> json) {
+    var reviewsFromJson = json['reviews'] as List;
+    List<Review> reviewsList = reviewsFromJson
+        .map((reviewJson) => Review.fromJson(reviewJson))
+        .toList();
     return Tour(
       id: json['id'],
       name: json['name'],
       thumbnail: json['thumbnail'],
       location: json['location'],
       description: json['description'],
+      reviews: reviewsList,
     );
   }
 }
@@ -84,6 +110,9 @@ class GridViewWidget extends StatelessWidget {
                           name: tour.name,
                           location: tour.location,
                           description: tour.description,
+                          photo: '',
+                          reviewerName: '',
+                          reviewerText: '',
                         ),
                       ),
                     );

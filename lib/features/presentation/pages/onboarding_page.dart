@@ -38,8 +38,8 @@ class OnboardingPage extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: AppColors.black),
                 ),
-                Text('and amazing sightseeing on the mountains'),
-                Text('Enjoy the best experience with us!'),
+                const Text('and amazing sightseeing on the mountains'),
+                const Text('Enjoy the best experience with us!'),
                 SizedBox(
                   height: 40.h,
                 ),
@@ -52,7 +52,7 @@ class OnboardingPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MainPage()));
+                                builder: (context) => const MainPage()));
                       },
                       child: Row(
                         children: [

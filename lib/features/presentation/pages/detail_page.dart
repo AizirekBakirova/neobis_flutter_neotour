@@ -13,11 +13,17 @@ class DetailPage extends StatelessWidget {
     required this.name,
     required this.location,
     required this.description,
+    required this.photo,
+    required this.reviewerName,
+    required this.reviewerText,
   });
   final String image;
   final String name;
   final String location;
   final String description;
+  final String photo;
+  final String reviewerName;
+  final String reviewerText;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +79,7 @@ class DetailPage extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
-                  height: 729.h,
+                  height: 629.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(36.r),
                     color: AppColors.white,
@@ -133,12 +139,11 @@ class DetailPage extends StatelessWidget {
                             SizedBox(
                                 height: 24.h,
                                 width: 24.w,
-                                child: Image.asset(
-                                    'assets/images/Ellipse 62.png')),
+                                child: Image.network(photo)),
                             const SizedBox(
                               width: 8,
                             ),
-                            Text('Anonymous',
+                            Text(reviewerName,
                                 style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -149,43 +154,13 @@ class DetailPage extends StatelessWidget {
                           height: 14.5.h,
                         ),
                         Text(
-                          'That was such a nice place. The most beautiful place I’ve ever seen. My advice to everyone not to forget to take warm coat',
+                          reviewerText,
                           style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.black),
                         ),
-                        SizedBox(
-                          height: 26.5.h,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                                height: 24.h,
-                                width: 24.w,
-                                child: Image.asset(
-                                    'assets/images/Ellipse 62.png')),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Text('Anonymous',
-                                style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.black)),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 14.5.h,
-                        ),
-                        Text(
-                          'That was such a nice place. The most beautiful place I’ve ever seen. My advice to everyone not to forget to take warm coat',
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.black),
-                        ),
-                        const Spacer(),
+                        Spacer(),
                         SizedBox(
                           height: 50.h,
                           width: 385.w,

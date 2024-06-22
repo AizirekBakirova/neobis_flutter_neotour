@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:neobis_flutter_neotour/features/data/provider/tour_provider.dart';
 import 'package:neobis_flutter_neotour/features/presentation/pages/onboarding_page.dart';
 import 'package:neobis_flutter_neotour/features/presentation/widgets/grid_view_widget.dart';
 import 'package:provider/provider.dart';
