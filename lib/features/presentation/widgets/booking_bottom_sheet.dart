@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+<<<<<<< HEAD
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../../util/colors/app_colors.dart';
 
 class BookingBottomSheet extends StatefulWidget {
   BookingBottomSheet({
+=======
+
+import '../../../util/colors/app_colors.dart';
+
+class BookingBottomSheet extends StatefulWidget {
+  const BookingBottomSheet({
+>>>>>>> b604ba90847c3c87c842769f374ec996348ba272
     super.key,
     this.onSubmit,
   });
@@ -16,6 +24,7 @@ class BookingBottomSheet extends StatefulWidget {
 }
 
 class _BookingBottomSheetState extends State<BookingBottomSheet> {
+<<<<<<< HEAD
   int count = 1;
 
   final _numberController = TextEditingController();
@@ -24,6 +33,26 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
     mask: '### ### ###',
     filter: {"#": RegExp(r'[0-9]')},
   );
+  bool get isFormValid =>
+      _numberController.text.isNotEmpty && _commentController.text.isNotEmpty;
+
+  @override
+  void initState() {
+    _numberController.addListener(() {
+      setState(() {});
+    });
+    _commentController.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+=======
+  int count = 0;
+>>>>>>> b604ba90847c3c87c842769f374ec996348ba272
+
+  final _numberController = TextEditingController();
+  final _commentController = TextEditingController();
+
   bool get isFormValid =>
       _numberController.text.isNotEmpty && _commentController.text.isNotEmpty;
 
@@ -99,13 +128,17 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                       height: 50.h,
                       width: 375.w,
                       child: TextField(
+<<<<<<< HEAD
                         inputFormatters: [phoneMaskFormatter],
                         keyboardType: TextInputType.number,
+=======
+>>>>>>> b604ba90847c3c87c842769f374ec996348ba272
                         controller: _numberController,
                         decoration: InputDecoration(
                             prefixIcon: GestureDetector(
                               onTap: () {},
                               child: DropdownButton<String>(
+<<<<<<< HEAD
                                 items: <String>[
                                   '+996',
                                 ].map((String value) {
@@ -118,6 +151,15 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                                           scale: 3.h,
                                         ),
                                       ],
+=======
+                                items: <String>['+996', '+7', '+1']
+                                    .map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Image.asset(
+                                      'assets/icons/Frame 86.png',
+                                      scale: 3.h,
+>>>>>>> b604ba90847c3c87c842769f374ec996348ba272
                                     ),
                                   );
                                 }).toList(),
@@ -193,9 +235,13 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(13.5.r),
+<<<<<<< HEAD
                                   color: count == 1
                                       ? Color(0xffB4B0DA)
                                       : Color(0xff897CFF)),
+=======
+                                  color: const Color(0xff897CFF)),
+>>>>>>> b604ba90847c3c87c842769f374ec996348ba272
                               child: const Center(
                                   child: Icon(
                                 Icons.remove,
@@ -228,9 +274,13 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(13.5.r),
+<<<<<<< HEAD
                                   color: count == 6
                                       ? Color(0xffB4B0DA)
                                       : Color(0xff897CFF)),
+=======
+                                  color: const Color(0xff897CFF)),
+>>>>>>> b604ba90847c3c87c842769f374ec996348ba272
                               child: const Center(
                                   child: Icon(
                                 Icons.add,
