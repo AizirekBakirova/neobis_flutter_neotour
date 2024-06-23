@@ -192,8 +192,8 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(13.5.r),
                                   color: count == 1
-                                      ? Color(0xffB4B0DA)
-                                      : Color(0xff897CFF)),
+                                      ? const Color(0xffB4B0DA)
+                                      : const Color(0xff897CFF)),
                               child: const Center(
                                   child: Icon(
                                 Icons.remove,
@@ -227,8 +227,8 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(13.5.r),
                                 color: count == 6
-                                    ? Color(0xffB4B0DA)
-                                    : Color(0xff897CFF),
+                                    ? const Color(0xffB4B0DA)
+                                    : const Color(0xff897CFF),
                               ),
                               child: const Center(
                                   child: Icon(
@@ -260,7 +260,7 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: isFormValid
                                 ? AppColors.primary
-                                : Color(0xffB4B0DA),
+                                : const Color(0xffB4B0DA),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(28.r))),
                         onPressed: isFormValid ? widget.onSubmit : null,

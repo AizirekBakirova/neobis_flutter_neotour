@@ -44,8 +44,8 @@ class _PageViewWidgetState extends State<PageViewWidget> {
                     return child!;
                   },
                   child: Container(
-                    margin: EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(
+                    margin: const EdgeInsets.only(right: 10),
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                       image: AssetImage('assets/images/Rectangle 21 (1).png'),
                     )),
@@ -57,11 +57,11 @@ class _PageViewWidgetState extends State<PageViewWidget> {
           height: 30.h,
         ),
         Padding(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: SmoothPageIndicator(
             controller: pageController,
             count: 5,
-            effect: ExpandingDotsEffect(
+            effect: const ExpandingDotsEffect(
                 expansionFactor: 4,
                 dotHeight: 6,
                 dotWidth: 6,

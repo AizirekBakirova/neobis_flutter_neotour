@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:neobis_flutter_neotour/features/presentation/pages/main_page.dart';
-import 'package:neobis_flutter_neotour/features/presentation/widgets/grid_view_widget.dart';
 import 'package:neobis_flutter_neotour/util/colors/app_colors.dart';
 
 import '../widgets/booking_bottom_sheet.dart';
 
 class DetailPage extends StatelessWidget {
-  DetailPage({
+  const DetailPage({
     super.key,
     required this.image,
     required this.name,
@@ -160,7 +159,7 @@ class DetailPage extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               color: AppColors.black),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         SizedBox(
                           height: 50.h,
                           width: 385.w,
@@ -228,8 +227,10 @@ class DetailPage extends StatelessWidget {
                 minWidth: 303.w,
                 height: 50.h,
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MainPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MainPage()));
                 },
                 // ignore: sort_child_properties_last
                 child: const Text(
