@@ -59,13 +59,7 @@ class Review {
 
 class TourProvider with ChangeNotifier {
   List<Tour> _tours = [];
-  final List<Tour> _viewedTours = [];
   List<Tour> get tours => _tours;
-  List<Tour> get viewedTours => _viewedTours;
-  void addViewedTour(Tour tour) {
-    _viewedTours.add(tour);
-    notifyListeners();
-  }
 
   Future<void> fetchTours() async {
     final response =
@@ -107,7 +101,6 @@ class GridViewWidget extends StatelessWidget {
                   image: tour.thumbnail,
                   text: tour.name,
                   onTap: () {
-                    tourProvider.addViewedTour(tour);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
