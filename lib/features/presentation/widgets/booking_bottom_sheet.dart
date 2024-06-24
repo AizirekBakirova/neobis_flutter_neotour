@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
 import '../../../util/colors/app_colors.dart';
 
 class BookingBottomSheet extends StatefulWidget {
@@ -121,11 +120,11 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsets.only(left: 30),
+                                                const EdgeInsets.only(left: 15),
                                             child: Image.asset(
                                               country['flag']!,
-                                              width: 24,
-                                              height: 24,
+                                              width: 24.w,
+                                              height: 24.h,
                                             ),
                                           ),
                                         ],
@@ -140,7 +139,7 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                                 ),
                               ),
                             ),
-                            prefixText: '$_selectedCode',
+                            prefixText: _selectedCode,
                             hintText: '  _ _ _   _ _ _   _ _ _',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100)),
