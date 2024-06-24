@@ -17,13 +17,14 @@ class BookingBottomSheet extends StatefulWidget {
 
 class _BookingBottomSheetState extends State<BookingBottomSheet> {
   int count = 1;
-  String _selectedCode = '+996';
+  String _selectedCode = '1';
   final _numberController = TextEditingController();
   final _commentController = TextEditingController();
   final phoneMaskFormatter = MaskTextInputFormatter(
     mask: '### ### ###',
     filter: {"#": RegExp(r'[0-9]')},
   );
+
   bool get isFormValid =>
       _numberController.text.isNotEmpty && _commentController.text.isNotEmpty;
 
@@ -39,10 +40,17 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
   }
 
   final List<Map<String, String>> _countries = [
-    {'code': '+996', 'flag': 'assets/icons/flag_kg-1x1.png'},
-    {'code': '+7', 'flag': 'assets/icons/flag_ru-1x1 (1).png'},
-    {'code': '+7', 'flag': 'assets/icons/flag_kz-1x1 (1).png'},
+    {'id': '1', 'code': '+996', 'flag': 'assets/icons/flag_kg-1x1.png'},
+    {'id': '2', 'code': '+7', 'flag': 'assets/icons/flag_ru-1x1 (1).png'},
+    {'id': '3', 'code': '+7', 'flag': 'assets/icons/flag_kz-1x1 (1).png'},
   ];
+
+  String get _parsedCode {
+    final country =
+        _countries.firstWhere((element) => element['id'] == _selectedCode);
+    return country['code']!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -108,38 +116,37 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                         controller: _numberController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                            prefixIcon: GestureDetector(
-                              onTap: () {},
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  value: _selectedCode,
-                                  items: _countries.map((country) {
-                                    return DropdownMenuItem<String>(
-                                      value: country['code'],
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 15),
-                                            child: Image.asset(
-                                              country['flag']!,
-                                              width: 24.w,
-                                              height: 24.h,
-                                            ),
+                            prefixIcon: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: _selectedCode,
+                                items: _countries.map((country) {
+                                  return DropdownMenuItem<String>(
+                                    value: country['id'],
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 15),
+                                          child: Image.asset(
+                                            country['flag']!,
+                                            width: 24.w,
+                                            height: 24.h,
                                           ),
-                                        ],
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedCode = value!;
-                                    });
-                                  },
-                                ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  print('value: $value');
+                                  if (value == null) return;
+                                  setState(() {
+                                    _selectedCode = value;
+                                  });
+                                },
                               ),
                             ),
-                            prefixText: _selectedCode,
+                            prefixText: _parsedCode,
                             hintText: '  _ _ _   _ _ _   _ _ _',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100)),

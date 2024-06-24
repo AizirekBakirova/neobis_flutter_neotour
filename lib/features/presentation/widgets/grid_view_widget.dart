@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -43,10 +45,19 @@ class Review {
   final String reviewerPhoto;
   final String reviewText;
 
-  Review(
-      {required this.reviewerName,
-      required this.reviewerPhoto,
-      required this.reviewText});
+  Review({
+    required this.reviewerName,
+    required this.reviewerPhoto,
+    required this.reviewText,
+  });
+
+  String get normalizedReviewerPhoto {
+    final data = reviewerPhoto.split('https');
+    if (data.length > 1) {
+      return 'https${data.last}';
+    }
+    return reviewerPhoto;
+  }
 
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
@@ -59,6 +70,7 @@ class Review {
 
 class TourProvider with ChangeNotifier {
   List<Tour> _tours = [];
+
   List<Tour> get tours => _tours;
 
   Future<void> fetchTours() async {
@@ -105,6 +117,7 @@ class GridViewWidget extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailPage(
+                          tour: tour,
                           image: tour.thumbnail,
                           name: tour.name,
                           location: tour.location,
