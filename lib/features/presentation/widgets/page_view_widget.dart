@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:neobis_flutter_neotour/features/presentation/pages/detail_page.dart';
+import 'package:neobis_flutter_neotour/features/presentation/widgets/grid_view_widget.dart';
 import 'package:neobis_flutter_neotour/util/colors/app_colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

@@ -38,8 +38,20 @@ class OnboardingPage extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: AppColors.black),
                 ),
-                const Text('and amazing sightseeing on the mountains'),
-                const Text('Enjoy the best experience with us!'),
+                Text(
+                  'and amazing sightseeing on the mountains',
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.black),
+                ),
+                Text(
+                  'Enjoy the best experience with us!',
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.black),
+                ),
                 SizedBox(
                   height: 40.h,
                 ),
