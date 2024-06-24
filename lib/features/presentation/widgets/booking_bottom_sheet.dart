@@ -18,7 +18,7 @@ class BookingBottomSheet extends StatefulWidget {
 
 class _BookingBottomSheetState extends State<BookingBottomSheet> {
   int count = 1;
-
+  String _selectedCode = '+996';
   final _numberController = TextEditingController();
   final _commentController = TextEditingController();
   final phoneMaskFormatter = MaskTextInputFormatter(
@@ -39,6 +39,11 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
     super.initState();
   }
 
+  final List<Map<String, String>> _countries = [
+    {'code': '+996', 'flag': 'assets/icons/flag_kg-1x1.png'},
+    {'code': '+7', 'flag': 'assets/icons/flag_ru-1x1 (1).png'},
+    {'code': '+7', 'flag': 'assets/icons/flag_kz-1x1 (1).png'},
+  ];
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -106,24 +111,37 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                         decoration: InputDecoration(
                             prefixIcon: GestureDetector(
                               onTap: () {},
-                              child: DropdownButton<String>(
-                                items: <String>['+996', '+7', '+1']
-                                    .map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Column(children: [
-                                      Image.asset(
-                                        'assets/icons/Frame 86 (1).png',
-                                        scale: 3.h,
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: _selectedCode,
+                                  items: _countries.map((country) {
+                                    return DropdownMenuItem<String>(
+                                      value: country['code'],
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 30),
+                                            child: Image.asset(
+                                              country['flag']!,
+                                              width: 24,
+                                              height: 24,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ]),
-                                  );
-                                }).toList(),
-                                onChanged: (_) {},
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _selectedCode = value!;
+                                    });
+                                  },
+                                ),
                               ),
                             ),
-                            prefixText: '+996 ',
-                            hintText: '_ _ _   _ _ _   _ _ _',
+                            prefixText: '$_selectedCode',
+                            hintText: '  _ _ _   _ _ _   _ _ _',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100)),
                             focusedBorder: OutlineInputBorder(
