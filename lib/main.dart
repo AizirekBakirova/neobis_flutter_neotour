@@ -5,7 +5,7 @@ import 'package:neobis_flutter_neotour/features/presentation/widgets/grid_view_w
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

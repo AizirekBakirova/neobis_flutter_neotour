@@ -23,7 +23,7 @@ class BookElevatedButton extends StatelessWidget {
               context: context,
               isScrollControlled: true,
               backgroundColor: Colors.transparent,
-              builder: (context) => BookingBottomSheet());
+              builder: (context) => const BookingBottomSheet());
         },
         child: Text(
           'Book Now',

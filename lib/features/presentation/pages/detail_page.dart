@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:neobis_flutter_neotour/features/presentation/pages/main_page.dart';
 import 'package:neobis_flutter_neotour/util/colors/app_colors.dart';
-
 import '../widgets/booking_bottom_sheet.dart';
 
 class DetailPage extends StatelessWidget {
@@ -232,7 +231,7 @@ class DetailPage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const MainPage()));
                 },
-                // ignore: sort_child_properties_last
+                color: AppColors.primary,
                 child: const Text(
                   'Ok',
                   style: TextStyle(
@@ -240,7 +239,6 @@ class DetailPage extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
                 ),
-                color: AppColors.primary,
               ),
             ),
           ],
