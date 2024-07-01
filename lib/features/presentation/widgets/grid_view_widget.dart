@@ -12,6 +12,9 @@ class Tour {
   final String location;
   final String description;
   final List<Review> reviews;
+  final bool isOnPromotion;
+  final String region;
+  final List<int> category;
 
   Tour({
     required this.id,
@@ -20,6 +23,9 @@ class Tour {
     required this.location,
     required this.description,
     required this.reviews,
+    required this.isOnPromotion,
+    required this.region,
+    required this.category,
   });
 
   factory Tour.fromJson(Map<String, dynamic> json) {
@@ -34,6 +40,11 @@ class Tour {
       location: json['location'],
       description: json['description'],
       reviews: reviewsList,
+      isOnPromotion: json['is_on_promotion'],
+      region: json['region'],
+      category: List<int>.from(
+        json['category'],
+      ),
     );
   }
 }
@@ -43,10 +54,19 @@ class Review {
   final String reviewerPhoto;
   final String reviewText;
 
-  Review(
-      {required this.reviewerName,
-      required this.reviewerPhoto,
-      required this.reviewText});
+  Review({
+    required this.reviewerName,
+    required this.reviewerPhoto,
+    required this.reviewText,
+  });
+
+  String get normalizedReviewerPhoto {
+    final data = reviewerPhoto.split('https');
+    if (data.length > 1) {
+      return 'https${data.last}';
+    }
+    return reviewerPhoto;
+  }
 
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
@@ -59,6 +79,7 @@ class Review {
 
 class TourProvider with ChangeNotifier {
   List<Tour> _tours = [];
+
   List<Tour> get tours => _tours;
 
   Future<void> fetchTours() async {
@@ -71,6 +92,23 @@ class TourProvider with ChangeNotifier {
       notifyListeners();
     } else {
       throw Exception('Failed to load tours');
+    }
+  }
+
+  List<Tour> getToursByCategory(String category) {
+    switch (category) {
+      case 'Popular':
+        return _tours.where((tour) => tour.isOnPromotion).toList();
+      case 'Featured':
+        return _tours.where((tour) => tour.category.contains(1)).toList();
+      case 'Most Visited':
+        return _tours.where((tour) => tour.category.contains(2)).toList();
+      case 'Europe':
+        return _tours.where((tour) => tour.region == 'europe').toList();
+      case 'Asia':
+        return _tours.where((tour) => tour.region == 'asia').toList();
+      default:
+        return _tours;
     }
   }
 }
@@ -118,6 +156,7 @@ class GridViewWidget extends StatelessWidget {
                           reviewerText: tour.reviews.isNotEmpty
                               ? tour.reviews[0].reviewText
                               : '',
+                          tour: tour,
                         ),
                       ),
                     );

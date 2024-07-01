@@ -21,7 +21,7 @@ class MainPage extends StatelessWidget {
                 const EdgeInsets.only(left: 15, top: 36, right: 15, bottom: 15),
             child: Column(
               children: [
-                const TopWidget(),
+                TopWidget(),
                 SizedBox(height: 28.h),
                 const PageViewWidget(),
                 SizedBox(height: 20.h),

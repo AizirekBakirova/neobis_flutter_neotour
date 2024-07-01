@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:neobis_flutter_neotour/features/presentation/pages/main_page.dart';
+import 'package:neobis_flutter_neotour/features/presentation/widgets/grid_view_widget.dart';
 import 'package:neobis_flutter_neotour/util/colors/app_colors.dart';
 import '../widgets/booking_bottom_sheet.dart';
 
@@ -14,7 +15,9 @@ class DetailPage extends StatelessWidget {
     required this.photo,
     required this.reviewerName,
     required this.reviewerText,
+    required this.tour,
   });
+
   final String image;
   final String name;
   final String location;
@@ -22,6 +25,7 @@ class DetailPage extends StatelessWidget {
   final String photo;
   final String reviewerName;
   final String reviewerText;
+  final Tour tour;
 
   @override
   Widget build(BuildContext context) {
@@ -122,51 +126,73 @@ class DetailPage extends StatelessWidget {
                               color: AppColors.black),
                         ),
                         SizedBox(height: 22.h),
-                        Text(
-                          'Reviews',
-                          style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.black),
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                                height: 24.h,
-                                width: 24.w,
-                                child: Image.network(photo)),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Text(reviewerName,
+                        ...List.generate(
+                          tour.reviews.length,
+                          (int index) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Reviews',
                                 style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.black)),
-                          ],
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.black),
+                              ),
+                              SizedBox(
+                                height: 16.h,
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    height: 24.h,
+                                    width: 24.w,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.network(
+                                        tour.reviews[index]
+                                            .normalizedReviewerPhoto,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    tour.reviews[index].reviewerName,
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 14.5.h,
+                              ),
+                              Text(
+                                tour.reviews[index].reviewText,
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.black,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        SizedBox(
-                          height: 14.5.h,
-                        ),
-                        Text(
-                          reviewerText,
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.black),
-                        ),
-                        const Spacer(),
+                        SizedBox(height: 50.h),
                         SizedBox(
                           height: 50.h,
                           width: 385.w,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.primary,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(28.r))),
+                              backgroundColor: AppColors.primary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(28.r),
+                              ),
+                            ),
                             onPressed: () {
                               showModalBottomSheet(
                                 context: context,

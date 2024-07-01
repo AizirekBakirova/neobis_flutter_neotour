@@ -60,6 +60,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => DetailPage(
+                                    tour: tour,
                                     image: tour.thumbnail,
                                     name: tour.name,
                                     location: tour.location,
