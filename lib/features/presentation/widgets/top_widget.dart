@@ -33,8 +33,6 @@ class _TopWidgetState extends State<TopWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final tours =
-        Provider.of<TourProvider>(context).getToursByCategory(selectedCategory);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

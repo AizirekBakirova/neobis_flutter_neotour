@@ -148,7 +148,7 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                               ),
                             ),
                             prefixText: _parsedCode,
-                            hintText: '_ _ _   _ _ _   _ _ _',
+                            hintText: '    _ _ _   _ _ _   _ _ _',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100)),
                             focusedBorder: OutlineInputBorder(

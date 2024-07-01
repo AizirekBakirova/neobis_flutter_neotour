@@ -12,9 +12,6 @@ class Tour {
   final String location;
   final String description;
   final List<Review> reviews;
-  final bool isOnPromotion;
-  final String region;
-  final List<int> category;
 
   Tour({
     required this.id,
@@ -23,9 +20,6 @@ class Tour {
     required this.location,
     required this.description,
     required this.reviews,
-    required this.isOnPromotion,
-    required this.region,
-    required this.category,
   });
 
   factory Tour.fromJson(Map<String, dynamic> json) {
@@ -40,11 +34,6 @@ class Tour {
       location: json['location'],
       description: json['description'],
       reviews: reviewsList,
-      isOnPromotion: json['is_on_promotion'],
-      region: json['region'],
-      category: List<int>.from(
-        json['category'],
-      ),
     );
   }
 }
@@ -92,23 +81,6 @@ class TourProvider with ChangeNotifier {
       notifyListeners();
     } else {
       throw Exception('Failed to load tours');
-    }
-  }
-
-  List<Tour> getToursByCategory(String category) {
-    switch (category) {
-      case 'Popular':
-        return _tours.where((tour) => tour.isOnPromotion).toList();
-      case 'Featured':
-        return _tours.where((tour) => tour.category.contains(1)).toList();
-      case 'Most Visited':
-        return _tours.where((tour) => tour.category.contains(2)).toList();
-      case 'Europe':
-        return _tours.where((tour) => tour.region == 'europe').toList();
-      case 'Asia':
-        return _tours.where((tour) => tour.region == 'asia').toList();
-      default:
-        return _tours;
     }
   }
 }
